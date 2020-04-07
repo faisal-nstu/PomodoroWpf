@@ -1,0 +1,374 @@
+﻿<Window x:Class="Pomodoro.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Pomodoro"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        mc:Ignorable="d"
+        Background="#252526"
+        WindowStyle="None"
+        BorderThickness="0"
+        AllowsTransparency="True"
+        ResizeMode="CanMinimize"
+        Loaded="Window_Loaded"
+        x:Name="MainPomoWindow"
+        SizeToContent="WidthAndHeight">
+    <Grid HorizontalAlignment="Center"
+          VerticalAlignment="Center">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <tb:TaskbarIcon IconSource="/Assets/pomo.ico"
+                        ToolTipText="Oh Pomo!"
+                        TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick"/>
+        <Grid x:Name="TitleGrid" 
+              Grid.Row="0"
+              Background="#19FFFFFF"
+              MouseDown="TitleGrid_MouseDown"/>
+        <StackPanel Grid.Row="0"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top">
+            <Button x:Name="MinimizeButton" 
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Padding="10"
+                    Click="MinimizeButton_Click">
+                <Border Background="Gray"
+                    Height="3"
+                    Width="15"/>
+            </Button>
+            <Button x:Name="ExitButton"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Padding="10"
+                    Click="ExitButton_Click">
+                <Grid>
+                    <Border Background="Gray"
+                    Height="3"
+                    Width="15" RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="45"/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                    </Border>
+                    <Border Background="Gray"
+                    Height="3"
+                    Width="15" RenderTransformOrigin="0.5,0.5">
+                        <Border.RenderTransform>
+                            <TransformGroup>
+                                <RotateTransform Angle="-45"/>
+                            </TransformGroup>
+                        </Border.RenderTransform>
+                    </Border>
+                </Grid>
+            </Button>
+        </StackPanel>
+
+        <Grid Grid.Row="1"
+              Height="270"
+              Width="270">
+            <Border Background="White"
+                        Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="30"
+                    Width="1"
+                    CornerRadius="0,0,15,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="30"
+                    Width="1"
+                    CornerRadius="15,15,0,0"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="30"
+                    CornerRadius="15,0,0,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="30"
+                    CornerRadius="0,15,15,0"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Height="270"
+              Width="270" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="45"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="30"
+                    Width="1"
+                    CornerRadius="0,0,15,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="30"
+                    Width="1"
+                    CornerRadius="15,15,0,0"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="30"
+                    CornerRadius="15,0,0,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="30"
+                    CornerRadius="0,15,15,0"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Height="270"
+              Width="270" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="15"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="0,0,15,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="15,15,0,0"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="15,0,0,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="0,15,15,0"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Height="270"
+              Width="270" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="30"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="0,0,15,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="15,15,0,0"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="15,0,0,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="0,15,15,0"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Height="270"
+              Width="270" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="60"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="0,0,15,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="15,15,0,0"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="15,0,0,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="0,15,15,0"/>
+        </Grid>
+
+        <Grid Grid.Row="1"
+              Height="270"
+              Width="270" RenderTransformOrigin="0.5,0.5">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform Angle="75"/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="0,0,15,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Bottom"
+                    Height="20"
+                    Width="1"
+                    CornerRadius="15,15,0,0"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="15,0,0,15"/>
+
+            <Border Background="White"
+                    Opacity="0.15"
+                    HorizontalAlignment="Left"
+                    VerticalAlignment="Center"
+                    Height="1"
+                    Width="15"
+                    CornerRadius="0,15,15,0"/>
+        </Grid>
+
+
+        <Border x:Name="TimeDial"
+                Grid.Row="1"
+                Background="Gray"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Height="200"
+                Width="200"
+                CornerRadius="100" 
+                RenderTransformOrigin="0.5,0.5"
+                MouseDown="TimeDial_MouseDown"
+                MouseUp="TimeDial_MouseUp"
+                MouseLeave="TimeDial_MouseLeave"
+                MouseMove="TimeDial_MouseMove">
+            <Border.RenderTransform>
+                <TransformGroup>
+                    <RotateTransform x:Name="DialRotation"/>
+                </TransformGroup>
+            </Border.RenderTransform>
+            <Grid>
+                <Border Background="White"
+                        Opacity="0.15"
+                        Width="100"
+                        Height="1"
+                        CornerRadius="15"/>
+                <Border Background="White"
+                        Opacity="0.15"
+                        Width="1"
+                        Height="100"
+                        CornerRadius="15"/>
+                <Border x:Name="TimeDialIndicator"
+                    Grid.Row="1"
+                    Background="DimGray"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Top"
+                    Height="10"
+                    Width="10"
+                    CornerRadius="5"
+                    Margin="0,5,0,0"/>
+            </Grid>
+        </Border>
+
+        <TextBox x:Name="TimeTextBox"
+                 Grid.Row="2"
+                 Foreground="DimGray"
+                 VerticalAlignment="Center"
+                 HorizontalAlignment="Center"
+                 TextAlignment="Center"
+                 MinWidth="50"
+                 InputScope="Number"
+                 Margin="0,0,0,10"
+                 Text="0"
+                 FontSize="24"
+                 FontWeight="ExtraLight"
+                 Background="Transparent"
+                 BorderBrush="DimGray"
+                 BorderThickness="0,0,0,1"
+                 KeyUp="TimeText_KeyUp"/>
+    </Grid>
+</Window>
