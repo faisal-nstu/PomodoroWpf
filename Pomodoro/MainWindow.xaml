@@ -126,19 +126,18 @@
             </Grid>
         </Border>
 
-        <TextBox x:Name="TimeTextBox"
-                 Grid.Row="1"
-                 Foreground="DimGray"
-                 VerticalAlignment="Center"
-                 HorizontalAlignment="Center"
-                 TextAlignment="Center"
-                 MinWidth="50"
-                 InputScope="Number"
-                 Margin="0,0,0,10"
-                 FontSize="48"
-                 FontWeight="ExtraLight"
-                 Background="Transparent"
-                 BorderThickness="0"
-                 IsReadOnly="True"/>
+        <Viewbox Grid.Row="1"
+                 Width="110"
+                 Height="100">
+            <TextBlock x:Name="TimeTextBlock"
+                       Foreground="DimGray"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"
+                       TextAlignment="Center"
+                       InputScope="Number"
+                       FontWeight="ExtraLight"
+                       Background="Transparent"
+                       Text="POMOH!"/>
+        </Viewbox>
     </Grid>
 </Window>

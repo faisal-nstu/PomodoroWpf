@@ -123,12 +123,12 @@ namespace Pomodoro
                 _timer.Stop();
             }
             _timer = new Timer();
-            _timer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
+            _timer.Elapsed += new ElapsedEventHandler(OnTimerElapsed);
             _timer.Interval = 1000;
             _timer.Start();
         }
 
-        public void DisplayTimeEvent(object source, ElapsedEventArgs e)
+        public void OnTimerElapsed(object source, ElapsedEventArgs e)
         {            
             RotateDial(_totalSeconds);
             _count++;
@@ -139,7 +139,7 @@ namespace Pomodoro
                 _timer.Stop();
                 this.Dispatcher.Invoke(() =>
                 {
-                    TimeTextBox.Text = "Done!";
+                    TimeTextBlock.Text = "DONE!";
                     System.Media.SystemSounds.Exclamation.Play();
                     MainPomoWindow.Show();
                     MainPomoWindow.Activate();
@@ -164,7 +164,7 @@ namespace Pomodoro
         {
             var remainingSeconds = totalSeconds - _count;
             var timeSpan = TimeSpan.FromSeconds(remainingSeconds);
-            TimeTextBox.Text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            TimeTextBlock.Text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
         }
 
         private TimeSpan GetTimeSpan(double limit)
@@ -193,35 +193,6 @@ namespace Pomodoro
                 return 0.0;
             else
                 return angle;
-        }
-
-        /*
-         * disabled for future improvement
-         */
-        private void TimeText_KeyUp(object sender, KeyEventArgs e)
-        {
-            var time = (sender as TextBox).Text;
-            time = time.Length > 0 ? time : "0";
-            double.TryParse(time, out double timeVal);
-
-            if (e.Key == Key.Up)
-            {
-                timeVal++;
-                TimeTextBox.Text = (timeVal % 100).ToString();
-            }
-
-            if (e.Key == Key.Down)
-            {
-                timeVal--;
-                if (timeVal == -1)
-                    timeVal = 99;
-                TimeTextBox.Text = (timeVal % 100).ToString();
-            }
-
-
-            var angle = (timeVal * 360) / (_maxValue - _minValue);
-
-            DialRotation.Angle = angle;
         }
     }
 }
