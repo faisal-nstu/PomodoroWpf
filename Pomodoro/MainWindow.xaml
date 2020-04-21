@@ -14,6 +14,7 @@
         Loaded="Window_Loaded"
         x:Name="MainPomoWindow"
         SizeToContent="WidthAndHeight">
+
     <Grid HorizontalAlignment="Center"
           VerticalAlignment="Center">
         <Grid.RowDefinitions>

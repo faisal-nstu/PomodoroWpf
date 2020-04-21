@@ -140,6 +140,7 @@ namespace Pomodoro
                 this.Dispatcher.Invoke(() =>
                 {
                     TimeTextBox.Text = "Done!";
+                    System.Media.SystemSounds.Exclamation.Play();
                     MainPomoWindow.Show();
                     MainPomoWindow.Activate();
                 });
