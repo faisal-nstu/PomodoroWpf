@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -13,8 +14,11 @@ namespace Pomodoro
     {
         private bool _mouseDown;
         private bool _minimized;
-        private readonly int _maxValue = 100;
+        private readonly int _maxValue = 30;
         private readonly int _minValue = 0;
+        private static Timer _timer;
+        private int _totalSeconds;
+        private int _count;
 
         public MainWindow()
         {
@@ -63,6 +67,8 @@ namespace Pomodoro
             }
         }
 
+
+        #region MOUSE EVENT HANDLERS
         private void TimeDial_MouseDown(object sender, MouseButtonEventArgs e)
         {
             _mouseDown = true;
@@ -80,24 +86,96 @@ namespace Pomodoro
 
         private void TimeDial_MouseMove(object sender, MouseEventArgs e)
         {
-            if (_mouseDown)
+            if (!_mouseDown)
             {
-                var pos = e.GetPosition(sender as Grid);
+                return;
+            }
 
-                var centerX = this.MainPomoWindow.ActualWidth / 2;
-                var centerY = this.MainPomoWindow.ActualHeight / 2;
-                double angle = GetAngle(pos, centerX, centerY);
+            var pos = e.GetPosition(sender as Grid);
 
-                var rotation = (360 - 0) * angle / (2 * Math.PI);
+            SetDialFromMousePosition(pos);
+        }
+        #endregion
 
-                DialRotation.Angle = rotation;
+        private void SetDialFromMousePosition(Point pos)
+        {
+            var centerX = this.MainPomoWindow.ActualWidth / 2;
+            var centerY = this.MainPomoWindow.ActualHeight / 2;
+            double angle = GetAngleFromMouse(pos, centerX, centerY);
 
-                var time = (_maxValue - _minValue) * angle / (2 * Math.PI);
-                TimeTextBox.Text = ((int)time).ToString();
+            var limit = (_maxValue - _minValue) * angle / (2 * Math.PI);
+
+            var timeSpan = GetTimeSpan(limit);
+
+            RotateDial((int)timeSpan.TotalSeconds);
+
+            SetTimer(timeSpan);
+        }
+
+
+
+        private void SetTimer(TimeSpan timeSpan)
+        {
+            _totalSeconds = (int)timeSpan.TotalSeconds;
+            if (_timer != null && _timer.Enabled)
+            {
+                _count = 0;
+                _timer.Stop();
+            }
+            _timer = new Timer();
+            _timer.Elapsed += new ElapsedEventHandler(DisplayTimeEvent);
+            _timer.Interval = 1000;
+            _timer.Start();
+        }
+
+        public void DisplayTimeEvent(object source, ElapsedEventArgs e)
+        {            
+            RotateDial(_totalSeconds);
+            _count++;
+
+            if (_totalSeconds < _count)
+            {
+                _count = 0;
+                _timer.Stop();
+                this.Dispatcher.Invoke(() =>
+                {
+                    TimeTextBox.Text = "Done!";
+                    MainPomoWindow.Show();
+                    MainPomoWindow.Activate();
+                });
             }
         }
 
-        private double GetAngle(Point pos, double x, double y)
+        private void RotateDial(int totalSeconds)
+        {
+            double timeVal = (double)(totalSeconds - _count) / 60;
+
+            var angle = (timeVal * 360) / (_maxValue - _minValue);
+
+            this.Dispatcher.Invoke(() =>
+            {
+                SetDialText(totalSeconds);
+                DialRotation.Angle = angle;
+            });
+        }
+
+        private void SetDialText(int totalSeconds)
+        {
+            var remainingSeconds = totalSeconds - _count;
+            var timeSpan = TimeSpan.FromSeconds(remainingSeconds);
+            TimeTextBox.Text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+        }
+
+        private TimeSpan GetTimeSpan(double limit)
+        {
+            var minutes = (int)limit;
+            var secondsInDecimal = limit - minutes;
+            var seconds = (int)(secondsInDecimal * 60);
+            var timeSpan = new TimeSpan(0, minutes, seconds);
+            return timeSpan;
+        }
+
+        private double GetAngleFromMouse(Point pos, double x, double y)
         {
             //Calculate out the distance(r) between the center and the position
             Point center = new Point(x, y);
@@ -107,7 +185,7 @@ namespace Pomodoro
 
             //Calculate the angle
             double angle = Math.Acos((center.Y - pos.Y) / r);
-            
+
             if (pos.X < x)
                 angle = 2 * Math.PI - angle;
             if (Double.IsNaN(angle))
@@ -116,6 +194,9 @@ namespace Pomodoro
                 return angle;
         }
 
+        /*
+         * disabled for future improvement
+         */
         private void TimeText_KeyUp(object sender, KeyEventArgs e)
         {
             var time = (sender as TextBox).Text;
@@ -123,7 +204,7 @@ namespace Pomodoro
             double.TryParse(time, out double timeVal);
 
             if (e.Key == Key.Up)
-            { 
+            {
                 timeVal++;
                 TimeTextBox.Text = (timeVal % 100).ToString();
             }
