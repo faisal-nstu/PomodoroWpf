@@ -4,12 +4,12 @@
     <OutputType>WinExe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <UseWPF>true</UseWPF>
-    <ApplicationIcon>Assets\pomo.ico</ApplicationIcon>
+    <ApplicationIcon>Assets\pomoh.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Assets\pomo.ico" />
     <None Remove="Assets\pomo2.png" />
+    <None Remove="Assets\pomoh.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -17,7 +17,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Resource Include="Assets\pomo.ico" />
+    <Resource Include="Assets\pomoh.ico" />
   </ItemGroup>
 
   <ItemGroup>

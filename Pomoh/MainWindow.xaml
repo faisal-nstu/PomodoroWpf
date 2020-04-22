@@ -21,7 +21,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <tb:TaskbarIcon IconSource="/Assets/pomo.ico"
+        <tb:TaskbarIcon IconSource="/Assets/pomoh.ico"
                         ToolTipText="Oh Pomo!"
                         TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick"/>
         <Grid x:Name="TitleGrid" 
