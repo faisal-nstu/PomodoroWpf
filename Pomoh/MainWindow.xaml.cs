@@ -143,6 +143,7 @@ namespace Pomoh
                     System.Media.SystemSounds.Exclamation.Play();
                     MainPomoWindow.Show();
                     MainPomoWindow.Activate();
+                    SysTrayIcon.ToolTipText = "Pomoh!";
                 });
             }
         }
@@ -164,7 +165,9 @@ namespace Pomoh
         {
             var remainingSeconds = totalSeconds - _count;
             var timeSpan = TimeSpan.FromSeconds(remainingSeconds);
-            TimeTextBlock.Text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            var text = $"{timeSpan.Minutes:D2}:{timeSpan.Seconds:D2}";
+            TimeTextBlock.Text = text;
+            SysTrayIcon.ToolTipText = text;
         }
 
         private TimeSpan GetTimeSpan(double limit)
