@@ -4,6 +4,7 @@ using System.Timers;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 
 namespace Pomoh
 {
@@ -19,7 +20,7 @@ namespace Pomoh
         private static Timer _timer;
         private int _totalSeconds;
         private int _count;
-
+        
         public MainWindow()
         {
             InitializeComponent();
@@ -129,7 +130,7 @@ namespace Pomoh
         }
 
         public void OnTimerElapsed(object source, ElapsedEventArgs e)
-        {            
+        {
             RotateDial(_totalSeconds);
             _count++;
 
@@ -139,13 +140,39 @@ namespace Pomoh
                 _timer.Stop();
                 this.Dispatcher.Invoke(() =>
                 {
-                    TimeTextBlock.Text = "DONE!";
-                    System.Media.SystemSounds.Exclamation.Play();
-                    MainPomoWindow.Show();
-                    MainPomoWindow.Activate();
-                    SysTrayIcon.ToolTipText = "Pomoh!";
+                    ShowAlert();
                 });
             }
+        }
+
+        private void ShowAlert()
+        {
+            TimeTextBlock.Text = "DONE!";
+            System.Media.SystemSounds.Exclamation.Play();
+            MainPomoWindow.Show();
+            MainPomoWindow.Activate();
+            SysTrayIcon.ToolTipText = "Pomoh!";
+            Flash();
+        }
+
+        private void Flash()
+        {
+            var count = 0;
+            var flashTimer = new Timer();
+            flashTimer.Elapsed += (o, i) =>
+            {
+                if (count < 10) 
+                {
+                    var visibility = count % 2 == 0 ? Visibility.Visible : Visibility.Collapsed;
+                    Dispatcher.Invoke(() =>
+                    {
+                        FlashGrid.Visibility = visibility;
+                    });
+                }
+                count++;
+            };
+            flashTimer.Interval = 300;
+            flashTimer.Start();
         }
 
         private void RotateDial(int totalSeconds)

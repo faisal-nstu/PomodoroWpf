@@ -241,6 +241,11 @@
             </Grid>
         </Border>
 
+        <Grid x:Name="FlashGrid"
+              Grid.Row="0"
+              Grid.RowSpan="2"
+              Background="#e7413a"
+              Visibility="Collapsed"/>
         <Viewbox Grid.Row="1"
                  Width="110"
                  Height="100">
