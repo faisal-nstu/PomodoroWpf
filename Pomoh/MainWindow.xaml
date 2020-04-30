@@ -137,7 +137,7 @@
         <tb:TaskbarIcon x:Name="SysTrayIcon"
                         IconSource="/Assets/pomoh.ico"
                         ToolTipText="Pomoh!"
-                        TrayMouseDoubleClick="TaskbarIcon_TrayMouseDoubleClick"/>
+                        TrayLeftMouseUp="SysTrayIcon_TrayLeftMouseUp"/>
         <Grid x:Name="TitleGrid" 
               Grid.Row="0"
               Background="#05FFFFFF"

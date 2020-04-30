@@ -50,15 +50,13 @@ namespace Pomoh
         {
             ToggleMinimize();
         }
-        private void TaskbarIcon_TrayMouseDoubleClick(object sender, RoutedEventArgs e)
-        {
-            ToggleMinimize();
-        }
+
         private void ToggleMinimize()
         {
             if (_minimized)
             {
                 Show();
+                Activate();
                 _minimized = false;
             }
             else
@@ -223,6 +221,11 @@ namespace Pomoh
                 return 0.0;
             else
                 return angle;
+        }
+
+        private void SysTrayIcon_TrayLeftMouseUp(object sender, RoutedEventArgs e)
+        {
+            ToggleMinimize();
         }
     }
 }
